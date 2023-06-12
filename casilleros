@@ -1,0 +1,112 @@
+////////////////////////////
+// Gracia Nava Ernesto
+// Ejercicio 18
+// Ingenieria en Desarrollon de Software
+///////////////////////////
+
+
+
+#include <iostream>
+#include <stdlib.h>
+#include <string>
+#include <conio.h>
+
+
+using namespace std;
+
+int main()
+{
+    const int filas = 6;
+    const int columnas = 6;
+    bool matriz[filas][columnas] = {};
+    string contrasenas[filas][columnas] = {};
+    int respuesta = 0, opcion;
+    srand(time(0));
+    HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+    //Cambia el color del texto
+    SetConsoleTextAttribute(out, 10);
+
+    do{
+
+     for(int i = 0; i < filas; i++) {
+        for(int j = 0; j < columnas; j++) {
+            if(matriz[i][j]) {
+                cout << " 1 ";
+            } else {
+                cout << " 0 ";
+            }
+        }
+        cout << endl;
+    }
+
+       cout << "Seleccione una opcion:" << endl;
+        cout << "1. Guardar cosas en el matriz" << endl;
+        cout << "2. Sacar cosas del matriz" << endl;
+        cout << "3. Salir del programa" << endl;
+        cin >> opcion;
+
+        switch(opcion){
+            case 1:{
+
+                int x, y;
+                bool ocupado = false;
+                 cout << "Ingrese la posicion (x y) donde quiere guardar sus cosas: ";
+                cin >> x >> y;
+                if(matriz[x][y]) {
+                    cout << "Ese espacio ya esta ocupado, por favor seleccione otra posicion." << endl;
+                } else {
+                ocupado = true;
+                matriz[x][y] = true;
+                string contrasena;
+                cout << "Ingrese una contraseña para proteger sus cosas: ";
+                cin >> contrasena;
+                contrasenas[x][y] = contrasena;
+                cout << "Las cosas han sido guardadas con exito." << endl;
+        }
+
+            }
+                break;
+            case 2:{
+                int x, y;
+                cout << "Ingrese la posicion (x y) donde guardo sus cosas: ";
+                cin >> x >> y;
+                if(matriz[x][y]) {
+                        string contrasena;
+                        cout << "Ingrese la contrasena: ";
+                        cin >> contrasena;
+                        if(contrasena == contrasenas[x][y]) {
+                        matriz[x][y] = false;
+                        contrasenas[x][y] = "";
+                        cout << "Las cosas han sido sacadas con exito." << endl;
+                } else {
+                    cout << "La contrasena es incorrecta, por favor intentelo de nuevo." << endl;
+                    }
+                } else {
+                    cout << "Ese espacio esta vacio, por favor seleccione otra posicion." << endl;
+                    }
+
+            }
+
+                break;
+            case 3:{
+                cout << "Saliendo del programa..." << endl;
+
+            }
+
+                break;
+            default:
+                cout << "Opcion invalida, por favor seleccione una opcion valida." << endl;
+                break;
+        }
+
+        cout << "Quiere continuar? (1) Si (0) No ";
+        cin >> respuesta;
+
+        system("cls");
+
+    }while(respuesta != 0);
+
+    cout << "Gracias por usar locker corporation el lugar mas seguro para guardar tus cosas,  vuelva pronto:D";
+
+    return 0;
+}
